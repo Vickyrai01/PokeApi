@@ -5,6 +5,7 @@ const infoPokemon = document.getElementById('info-principal');
 const contenedorDePokemons = document.getElementById('contenedor-de-pokemons');
 const agregarPokemonsBtn = document.getElementById('poner-mas-pokemons');
 const mostrarPokemonsAnteriores = document.getElementById('menos-pokemons');
+const volverAlInicioBtn = document.getElementById('inicio');
 let rangoMayor = 9;
 let rangoMenor = 1;
 
@@ -16,34 +17,9 @@ if (savedRangoMenor !== null && savedRangoMayor !== null) {
     rangoMayor = parseInt(savedRangoMayor, 10);
 }
 
-const obtenerPokemon = async () => {
-    try {
-        const nombrePokemonOId = inputPokemon.value;
-        const respuesta = await fetch(`https://pokeapi.co/api/v2/pokemon/${nombrePokemonOId}`);
-        const dato = await respuesta.json();
-        mostrarPokemon(dato);
-    } catch (err) {
-        alert("Ese pokemon no existe");
-        console.log(err);
-    }
-}
-
-const mostrarPokemon = (dato) => {
-    const nombrePokemon = dato.name.toUpperCase();
-    const idPokemon = dato.id;
-    const imagenPokemon = dato.sprites.front_default;
-    const tipos = dato.types;
-
-    infoPokemon.innerHTML = `
-        <p>#${idPokemon} ${nombrePokemon}</p>
-        <img src="${imagenPokemon}" alt="${nombrePokemon}">
-        <div id="contenedor-de-tipos">${devolverElementoConTipo(tipos)}</div>
-    `;
-}
-
-
 const mostrarNuevePokemons = async () => {
     try {
+        contenedorDePokemons.innerHTML= "";
         let contador = rangoMenor;
         while (contador <= rangoMayor) {
             const url = `https://pokeapi.co/api/v2/pokemon/${contador}`;
@@ -89,6 +65,7 @@ mostrarNuevePokemons();
 const animarYModificarContenedorDePokemons = (unaFuncion) =>{
     animacionScroll();
     modificarContenedorDePokemons(unaFuncion);
+    mostrarBotonInicio();
 }
 
 const animacionScroll = () =>{
@@ -103,34 +80,38 @@ const modificarContenedorDePokemons = (unaFuncion) =>{
 }
 
 const agregarNuevosPokemosnAlContenedor = () =>{
-    contenedorDePokemons.innerHTML= "";
     rangoMenor = rangoMayor + 1;
     rangoMayor += 9;
-    // Guardar los valores en localStorage
-    guardarRangos(rangoMenor, rangoMayor);
-    mostrarNuevePokemons();
+    guardarRangosYMostrarPokemons(rangoMenor, rangoMayor);
 }
 const agregarPokemosnAnterioresAlContenedor = () =>{
-    contenedorDePokemons.innerHTML = "";
     if (rangoMenor > 1) {
         rangoMayor = rangoMenor - 1;
         rangoMenor = Math.max(rangoMenor - 9, 1); 
     }
+    guardarRangosYMostrarPokemons(rangoMenor, rangoMayor);
+}
+
+const guardarRangosYMostrarPokemons = (rangoMenor, rangoMayor) =>{
     guardarRangos(rangoMenor, rangoMayor);
     mostrarNuevePokemons();
 }
-
 const guardarRangos = (rangoMenor, rangoMayor) =>{
     localStorage.setItem('rangoMenor', rangoMenor);
     localStorage.setItem('rangoMayor', rangoMayor);
 }
 
+const mostrarBotonInicio = () =>{
+    if(rangoMayor >= 9 && rangoMenor >= 1){
+        volverAlInicioBtn.classList.remove('hidden');
+    }
+}
+
+volverAlInicioBtn.addEventListener('click', () => {
+    volverAlInicioBtn.classList.add('hidden');
+    rangoMayor = 9;
+    rangoMenor = 1;
+    guardarRangosYMostrarPokemons(rangoMenor, rangoMayor);
+})
+
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Funciones de los botones %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-formularioPokemon.addEventListener('submit', e => {
-    e.preventDefault();
-    obtenerPokemon();
-    inputPokemon.value = "";
-});
-
-
