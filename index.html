@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Poke api</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main>
+        <h1>Buscador de pokemons</h1>
+        <div id="contenedor-principal">
+            <form id="buscar-pokemons">
+                <input id="input-pokemons" required placeholder="Nombre o id del pokemon">
+                <button id= "boton-busqueda">Buscar pokemon</button>
+            </form>
+            <div id="info-principal"></div>
+        </div>
+        <div id="display-todos-los-pokemons">
+            <button id="inicio" class = "hidden">Volver al inicio</button>
+            <div id="contenedor-de-pokemons"></div>
+            <button id="menos-pokemons">volver atras</button>
+            <button id="poner-mas-pokemons">Mas pokemons</button>
+        </div>
+    </main>
+    <script src="./script.js"></script>
+</body>
+</html>
