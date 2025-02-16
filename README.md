@@ -8,18 +8,6 @@ Esta es una aplicación web que muestra una lista de Pokémon obtenidos de la AP
 - Permite la paginación para navegar entre los Pokémon.
 - Guarda el estado en `localStorage` para mantener los datos al recargar la página.
 
-## Instalación
-
-1. Clona este repositorio:
-    ```sh
-    git clone https://github.com/tu-usuario/tu-repositorio.git
-    ```
-2. Navega al directorio del proyecto:
-    ```sh
-    cd tu-repositorio
-    ```
-3. Abre `index.html` en tu navegador web.
-
 ## Uso
 
 - Usa el selector de tipos de Pokémon para filtrar los Pokémon por tipo.
