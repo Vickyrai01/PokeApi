@@ -144,3 +144,12 @@ button:hover {
 .hidden{
     display: none;
 }
+
+.lista-tipos{
+    height: 35px;
+    font-size: 16px;
+    padding: 0 20px;
+    background-color: #e7e8e8;
+    border-radius: 0.2vw;
+    margin: 0 0.5vw;
+}
